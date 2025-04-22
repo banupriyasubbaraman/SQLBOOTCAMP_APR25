@@ -180,11 +180,12 @@ CREATE TABLE IF NOT EXISTS public.orderdetails
     unitPrice double precision NOT NULL,
     quantity smallint NOT NULL,
     discount double precision,
-	CONSTRAINT orderdetails_orderid_fkey FOREIGN KEY ("orderID")
+    CONSTRAINT orderdetails_pkey PRIMARY KEY ("orderID", "productID"),
+    CONSTRAINT orderdetails_orderid_fkey FOREIGN KEY ("orderID")
         REFERENCES public.orders ("orderID"),
-	CONSTRAINT orderdetails_productid_fkey FOREIGN KEY ("productID")
+    CONSTRAINT orderdetails_productid_fkey FOREIGN KEY ("productID")
         REFERENCES public.products ("productID")
-)
+);
 
 TABLESPACE pg_default;
 
