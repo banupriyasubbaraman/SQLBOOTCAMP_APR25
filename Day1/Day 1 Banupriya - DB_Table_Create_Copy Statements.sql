@@ -1,6 +1,6 @@
-----------------------------------------------------------------------------------------
----------------------------- Create Database Statement---------------------------
-----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+---------------------------- Create Database Statement----------------------------------------------
+----------------------------------------------------------------------------------------------------
 
 -- Database: NorthwindTradersDB
 
@@ -17,11 +17,11 @@ CREATE DATABASE "NorthwindTradersDB"
     CONNECTION LIMIT = -1
     IS_TEMPLATE = False;
 
-----------------------------------------------------------------------------------------
----------------------------- Create Table Statements---------------------------
-----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+---------------------------- Create Table Statements------------------------------------------------
+----------------------------------------------------------------------------------------------------
 
----------1) Table 1: categories------------------------------------------------
+---------Table 1: categories------------------------------------------------------------------------
 -- Table: public.categories
 
 -- DROP TABLE IF EXISTS public.categories;
@@ -40,7 +40,7 @@ ALTER TABLE IF EXISTS public.categories
     OWNER to postgres;
 
 
----------1) Table 2: customers------------------------------------------------
+---------Table 2: customers------------------------------------------------------------------------
 -- Table: public.customers
 
 -- DROP TABLE IF EXISTS public.customers;
@@ -61,7 +61,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.customers
     OWNER to postgres;
 
----------1) Table 3: datadictionary------------------------------------------------
+---------Table 3: datadictionary---------------------------------------------------------------------
 -- Table: public.datadictionary
 
 -- DROP TABLE IF EXISTS public.datadictionary;
@@ -78,7 +78,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.datadictionary
     OWNER to postgres;
 
----------1) Table 4: employees------------------------------------------------
+---------Table 4: employees------------------------------------------------------------------------
 -- Table: public.employees
 
 -- DROP TABLE IF EXISTS public.employees;
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS public.employees
     CONSTRAINT "employees_reportsTo_fkey" FOREIGN KEY (reportsto)
         REFERENCES public.employees ("employeeID"),
 
-	-- Check to ensure no one reports to themselves
+    -- Check to ensure no one reports to themselves
     CONSTRAINT chk_no_self_reporting CHECK ("employeeID" IS DISTINCT FROM reportsto)
 )
 
@@ -104,7 +104,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.employees
     OWNER to postgres;
 
----------1) Table 5: shippers------------------------------------------------
+---------Table 5: shippers-------------------------------------------------------------------------
 -- Table: public.shippers
 
 -- DROP TABLE IF EXISTS public.shippers;
@@ -121,7 +121,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.shippers
     OWNER to postgres;
 
----------1) Table 6: orders------------------------------------------------
+----------Table 6: orders------------------------------------------------------------------------
 -- Table: public.orders
 
 -- DROP TABLE IF EXISTS public.orders;
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS public.orders
 	freight double precision NOT NULL,
 	CONSTRAINT order_pkey PRIMARY KEY ("orderID"),
 	
-	    -- Check 1: freight should not be negative
+    -- Check 1: freight should not be negative
     CONSTRAINT chk_freight_nonnegative CHECK (freight >= 0::double precision),
 
     -- Check 2: requiredDate must be on or after orderDate
@@ -169,7 +169,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.orders
     OWNER to postgres;
 
----------1) Table 7: products------------------------------------------------
+----------Table 7: products------------------------------------------------------------------------
 -- Table: public.products
 
 -- DROP TABLE IF EXISTS public.products;
@@ -195,7 +195,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.products
     OWNER to postgres;
 
----------1) Table 8: orderdetails------------------------------------------------
+----------Table 8: orderdetails------------------------------------------------------------------------
 -- Table: public.orderdetails
 
 -- DROP TABLE IF EXISTS public.orderdetails;
@@ -226,11 +226,11 @@ CREATE TABLE IF NOT EXISTS public.orderdetails
 ALTER TABLE IF EXISTS public.orderdetails
     OWNER to postgres;
 
-----------------------------------------------------------------------------------------
-------- Copy Commands -----------------------------------------------------------------
-----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+------- Copy Commands -----------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 
----------1) Table 1: categories------------------------------------------------
+----------Table 1: categories------------------------------------------------
 COPY categories
 FROM 'C:\Banu\BanuWork\SQL\Bootcamp_Apr2025\archive\categories.csv'
 DELIMITER ','
@@ -238,7 +238,7 @@ CSV HEADER;
 
 select * from categories
 
----------1) Table 2: customers------------------------------------------------
+----------Table 2: customers------------------------------------------------------------------------
 COPY customers
 FROM 'C:\Banu\BanuWork\SQL\Bootcamp_Apr2025\archive\customers.csv'
 WITH (
@@ -250,7 +250,7 @@ WITH (
 
 select * from customers
 
----------1) Table 3: datadictionary------------------------------------------------
+----------Table 3: datadictionary-------------------------------------------------------------------
 COPY datadictionary
 FROM 'C:\Banu\BanuWork\SQL\Bootcamp_Apr2025\archive\data_dictionary.csv'
 DELIMITER ','
@@ -258,7 +258,7 @@ CSV HEADER;
 
 select * from datadictionary
 
----------1) Table 4: employees------------------------------------------------
+----------Table 4: employees------------------------------------------------------------------------
 COPY employees
 FROM 'C:\Banu\BanuWork\SQL\Bootcamp_Apr2025\archive\employees.csv'
 DELIMITER ','
@@ -266,7 +266,7 @@ CSV HEADER;
 
 select * from employees
 
----------1) Table 5: shippers------------------------------------------------
+----------Table 5: shippers------------------------------------------------------------------------
 COPY shippers
 FROM 'C:\Banu\BanuWork\SQL\Bootcamp_Apr2025\archive\shippers.csv'
 DELIMITER ','
@@ -274,7 +274,7 @@ CSV HEADER;
 
 select * from shippers
 
----------1) Table 6: orders------------------------------------------------
+----------Table 6: orders--------------------------------------------------------------------------
 COPY orders
 FROM 'C:\Banu\BanuWork\SQL\Bootcamp_Apr2025\archive\orders.csv'
 DELIMITER ','
@@ -282,7 +282,7 @@ CSV HEADER;
 
 select * from orders
 
----------1) Table 7: products------------------------------------------------
+----------Table 7: products-----------------------------------------------------------------------
 COPY products
 FROM 'C:\Banu\BanuWork\SQL\Bootcamp_Apr2025\archive\products.csv'
 WITH (
@@ -294,7 +294,7 @@ WITH (
 
 select * from products
 
----------1) Table 8: orderdetails------------------------------------------------
+----------Table 8: orderdetails---------------------------------------------------------------------
 COPY orderdetails
 FROM 'C:\Banu\BanuWork\SQL\Bootcamp_Apr2025\archive\order_details.csv'
 DELIMITER ','
