@@ -86,12 +86,14 @@ ALTER TABLE IF EXISTS public.datadictionary
 CREATE TABLE IF NOT EXISTS public.employees
 (
     "employeeID" smallint NOT NULL,
-    "employeeName" character varying(100) COLLATE pg_catalog."default",
-    "title" character varying(100) COLLATE pg_catalog."default",
+    "employeeName" character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    title character varying(100) COLLATE pg_catalog."default",
     city character varying(70) COLLATE pg_catalog."default",
     country character varying(50) COLLATE pg_catalog."default",
-	reportsTo  smallint,
-	CONSTRAINT employee_pkey PRIMARY KEY ("employeeID")
+    reportsto smallint,
+    CONSTRAINT employee_pkey PRIMARY KEY ("employeeID"),
+    CONSTRAINT "employees_reportsTo_fkey" FOREIGN KEY (reportsto)
+        REFERENCES public.employees ("employeeID")
 )
 
 TABLESPACE pg_default;
@@ -107,7 +109,7 @@ ALTER TABLE IF EXISTS public.employees
 CREATE TABLE IF NOT EXISTS public.shippers
 (
     "shipperID" smallint NOT NULL,
-    "companyName" character varying(100) COLLATE pg_catalog."default",
+    "companyName" character varying(100) COLLATE pg_catalog."default" NOT NULL,
 	CONSTRAINT shipper_pkey PRIMARY KEY ("shipperID")
 )
 
@@ -126,8 +128,8 @@ CREATE TABLE IF NOT EXISTS public.orders
     "orderID" smallint NOT NULL,
     "customerID" character varying(50) NOT NULL,
     "employeeID" smallint NOT NULL,
-    orderDate date,
-    requiredDate date,
+    orderDate date NOT NULL,
+    requiredDate date NOT NULL,
 	shippedDate date,
 	"shipperID" smallint NOT NULL,
 	freight double precision NOT NULL,
