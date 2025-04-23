@@ -21,7 +21,7 @@ CREATE DATABASE "NorthwindTraders"
 ---------------------------- Create Table Statements---------------------------
 ----------------------------------------------------------------------------------------
 
------------ Table 1: categories------------------------------------------------
+---------1) Table 1: categories------------------------------------------------
 -- Table: public.categories
 
 -- DROP TABLE IF EXISTS public.categories;
@@ -40,7 +40,7 @@ ALTER TABLE IF EXISTS public.categories
     OWNER to postgres;
 
 
------------ Table 2: customers------------------------------------------------
+---------1) Table 2: customers------------------------------------------------
 -- Table: public.customers
 
 -- DROP TABLE IF EXISTS public.customers;
@@ -61,7 +61,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.customers
     OWNER to postgres;
 
------------ Table 3: datadictionary------------------------------------------------
+---------1) Table 3: datadictionary------------------------------------------------
 -- Table: public.datadictionary
 
 -- DROP TABLE IF EXISTS public.datadictionary;
@@ -78,7 +78,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.datadictionary
     OWNER to postgres;
 
------------ Table 4: employees------------------------------------------------
+---------1) Table 4: employees------------------------------------------------
 -- Table: public.employees
 
 -- DROP TABLE IF EXISTS public.employees;
@@ -86,12 +86,14 @@ ALTER TABLE IF EXISTS public.datadictionary
 CREATE TABLE IF NOT EXISTS public.employees
 (
     "employeeID" smallint NOT NULL,
-    "employeeName" character varying(100) COLLATE pg_catalog."default",
-    "title" character varying(100) COLLATE pg_catalog."default",
+    "employeeName" character varying(100) COLLATE pg_catalog."default" NOT NULL,
+    title character varying(100) COLLATE pg_catalog."default",
     city character varying(70) COLLATE pg_catalog."default",
     country character varying(50) COLLATE pg_catalog."default",
-	reportsTo  smallint,
-	CONSTRAINT employee_pkey PRIMARY KEY ("employeeID")
+    reportsto smallint,
+    CONSTRAINT employee_pkey PRIMARY KEY ("employeeID"),
+    CONSTRAINT "employees_reportsTo_fkey" FOREIGN KEY (reportsto)
+        REFERENCES public.employees ("employeeID")
 )
 
 TABLESPACE pg_default;
@@ -99,7 +101,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.employees
     OWNER to postgres;
 
------------ Table 5: shippers------------------------------------------------
+---------1) Table 5: shippers------------------------------------------------
 -- Table: public.shippers
 
 -- DROP TABLE IF EXISTS public.shippers;
@@ -107,7 +109,7 @@ ALTER TABLE IF EXISTS public.employees
 CREATE TABLE IF NOT EXISTS public.shippers
 (
     "shipperID" smallint NOT NULL,
-    "companyName" character varying(100) COLLATE pg_catalog."default",
+    "companyName" character varying(100) COLLATE pg_catalog."default" NOT NULL,
 	CONSTRAINT shipper_pkey PRIMARY KEY ("shipperID")
 )
 
@@ -116,7 +118,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.shippers
     OWNER to postgres;
 
------------ Table 6: orders------------------------------------------------
+---------1) Table 6: orders------------------------------------------------
 -- Table: public.orders
 
 -- DROP TABLE IF EXISTS public.orders;
@@ -126,8 +128,8 @@ CREATE TABLE IF NOT EXISTS public.orders
     "orderID" smallint NOT NULL,
     "customerID" character varying(50) NOT NULL,
     "employeeID" smallint NOT NULL,
-    orderDate date,
-    requiredDate date,
+    orderDate date NOT NULL,
+    requiredDate date NOT NULL,
 	shippedDate date,
 	"shipperID" smallint NOT NULL,
 	freight double precision NOT NULL,
@@ -145,7 +147,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.orders
     OWNER to postgres;
 
------------ Table 7: products------------------------------------------------
+---------1) Table 7: products------------------------------------------------
 -- Table: public.products
 
 -- DROP TABLE IF EXISTS public.products;
@@ -168,7 +170,7 @@ TABLESPACE pg_default;
 ALTER TABLE IF EXISTS public.products
     OWNER to postgres;
 
------------ Table 8: orderdetails------------------------------------------------
+---------1) Table 8: orderdetails------------------------------------------------
 -- Table: public.orderdetails
 
 -- DROP TABLE IF EXISTS public.orderdetails;
@@ -187,8 +189,6 @@ CREATE TABLE IF NOT EXISTS public.orderdetails
         REFERENCES public.products ("productID")
 );
 
-TABLESPACE pg_default;
-
 ALTER TABLE IF EXISTS public.orderdetails
     OWNER to postgres;
 
@@ -196,7 +196,7 @@ ALTER TABLE IF EXISTS public.orderdetails
 ------- Copy Commands -----------------------------------------------------------------
 ----------------------------------------------------------------------------------------
 
------------ Table 1: categories------------------------------------------------
+---------1) Table 1: categories------------------------------------------------
 COPY categories
 FROM 'C:\Banu\BanuWork\SQL\Bootcamp_Apr2025\archive\categories.csv'
 DELIMITER ','
@@ -204,7 +204,7 @@ CSV HEADER;
 
 select * from categories
 
------------ Table 2: customers------------------------------------------------
+---------1) Table 2: customers------------------------------------------------
 COPY customers
 FROM 'C:\Banu\BanuWork\SQL\Bootcamp_Apr2025\archive\customers.csv'
 WITH (
@@ -216,7 +216,7 @@ WITH (
 
 select * from customers
 
------------ Table 3: datadictionary------------------------------------------------
+---------1) Table 3: datadictionary------------------------------------------------
 COPY datadictionary
 FROM 'C:\Banu\BanuWork\SQL\Bootcamp_Apr2025\archive\data_dictionary.csv'
 DELIMITER ','
@@ -224,7 +224,7 @@ CSV HEADER;
 
 select * from datadictionary
 
------------ Table 4: employees------------------------------------------------
+---------1) Table 4: employees------------------------------------------------
 COPY employees
 FROM 'C:\Banu\BanuWork\SQL\Bootcamp_Apr2025\archive\employees.csv'
 DELIMITER ','
@@ -232,7 +232,7 @@ CSV HEADER;
 
 select * from employees
 
------------ Table 5: shippers------------------------------------------------
+---------1) Table 5: shippers------------------------------------------------
 COPY shippers
 FROM 'C:\Banu\BanuWork\SQL\Bootcamp_Apr2025\archive\shippers.csv'
 DELIMITER ','
@@ -240,7 +240,7 @@ CSV HEADER;
 
 select * from shippers
 
------------ Table 6: orders------------------------------------------------
+---------1) Table 6: orders------------------------------------------------
 COPY orders
 FROM 'C:\Banu\BanuWork\SQL\Bootcamp_Apr2025\archive\orders.csv'
 DELIMITER ','
@@ -248,7 +248,7 @@ CSV HEADER;
 
 select * from orders
 
------------ Table 7: products------------------------------------------------
+---------1) Table 7: products------------------------------------------------
 COPY products
 FROM 'C:\Banu\BanuWork\SQL\Bootcamp_Apr2025\archive\products.csv'
 WITH (
@@ -260,7 +260,7 @@ WITH (
 
 select * from products
 
------------ Table 8: orderdetails------------------------------------------------
+---------1) Table 8: orderdetails------------------------------------------------
 COPY orderdetails
 FROM 'C:\Banu\BanuWork\SQL\Bootcamp_Apr2025\archive\order_details.csv'
 DELIMITER ','
