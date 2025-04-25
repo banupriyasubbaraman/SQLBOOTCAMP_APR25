@@ -115,4 +115,5 @@ select * from products where "productID" in (101,102,103)
 --USE NEW Northwind DB:
 --7)      List all orders with employee full names. (Inner join)
 
-select o.order_id,e.employee_id,e.first_name || ' ' || e.last_name as FullNames from orders o,employees e where e.employee_id = o.employee_id
+select o.order_id,e.employee_id,e.first_name || ' ' || e.last_name as FullNames from orders o inner join employees e on e.employee_id = o.employee_id
+
