@@ -1,6 +1,7 @@
 ---------------------Day 7 - SQL Scripts: Banupriya
 /*1.     Rank employees by their total sales
 (Total sales = Total no of orders handled, JOIN employees and orders table)*/
+
 SELECT
 	EMPLOYEE_ID,
 	COUNT(ORDER_ID) AS TOTAL_SALES,
@@ -18,6 +19,7 @@ ORDER BY
 /*2.      Compare current orders freight with previous and next order for each customer.
 (Display order_id,  customer_id,  order_date,  freight,
 Use lead(freight) and lag(freight).*/
+
 SELECT
 	ORDER_ID,
 	CUSTOMER_ID,
@@ -45,6 +47,7 @@ WHEN unit_price < 20 THEN 'Low Price'
 WHEN unit_price < 50 THEN 'Medium Price'
 ELSE 'High Price'
 ·  	In the main query display: price_category,  product_count in each price_category,  ROUND(AVG(unit_price)::numeric, 2) as avg_price)*/
+
 WITH
 	PRICE_CATEGORY AS (
 		SELECT
