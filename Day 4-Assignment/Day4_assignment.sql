@@ -1,3 +1,12 @@
+1. /*    List all customers and the products they ordered with the order date. (Inner join)
+Tables used: customers, orders, order_details, products
+Output should have below columns:
+    companyname AS customer,
+    orderid,
+    productname,
+    quantity, */	
+    
+    
 Select * from customers;
 select * from orders;
 select * from order_details;
@@ -26,6 +35,11 @@ Select * from shippers;
 select * from order_details;
 Select * From Products;
 
+
+/*2.     Show each order with customer, employee, shipper, and product info — even if some parts are missing. (Left Join)
+Tables used: orders, customers, employees, shippers, order_details, products
+*/
+
 select  
 a.order_id,
 b.company_name,
@@ -45,6 +59,16 @@ on d.product_id = e.product_id
 left join shippers f
 on b.company_name=f.company_name
 
+
+/*3.     Show all order details and products (include all products even if they were never ordered). (Right Join)
+Tables used: order_details, products
+Output should have below columns:
+    orderid,
+    productid,
+    quantity,
+    productname
+*/
+
 select 
 a.order_id,
 a.quantity,
@@ -53,6 +77,11 @@ b.product_id
 from order_details a
 right join Products b
 on a.product_id=b.product_id
+
+
+/*4. 	List all product categories and their products — including categories that have no products, and products that are not assigned to any category.(Outer Join)
+Tables used: categories, products
+*/
 
 Select  
 a.category_name,
@@ -64,6 +93,7 @@ from categories a
 full outer join Products b
 on a.category_id = b.category_id
 
+/* 5. 	Show all possible product and category combinations (Cross join).*/
 
 
 SELECT
@@ -74,6 +104,8 @@ FROM
 CROSS JOIN
     Categories;
 
+/*6. 	Show all employees and their manager(Self join(left join))*/
+
 
 SELECT
     a.first_name AS Employee_FN,
@@ -82,6 +114,11 @@ FROM
     employees a
 LEFT JOIN
     employees b ON a.employee_id = b.employee_id;
+
+
+/* 7. 	List all customers who have not selected a shipping method.
+Tables used: customers, orders
+(Left Join, WHERE o.shipvia IS NULL)*/
 
 select  
 a.company_name as customer,
